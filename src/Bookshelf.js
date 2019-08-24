@@ -4,7 +4,7 @@ import Book from './Book'
 
 class Bookshelf extends Component {
      static propTypes = {
-         books: PropTypes.object,
+         books: PropTypes.array,
          title: PropTypes.string
       }
 

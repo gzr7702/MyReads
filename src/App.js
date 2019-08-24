@@ -6,19 +6,24 @@ import BookShelf from './Bookshelf.js'
 const books = [
   {title: 'How to eat',
    author: 'Joe Smith',
-   category: 'wantToRead'},
+   category: 'wantToRead',
+   cover: 'http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api'},
   {title: 'Cozy',
    author: 'Joe Blow',
-   category: 'read'},
+   category: 'read',
+   cover: 'http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api'},
   {title: 'Flabergasted',
    author: 'Jane Smith',
-   category: 'currentlyReading'},
+   category: 'currentlyReading',
+   cover: 'http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api'},
   {title: 'Wunna',
    author: 'Bill Boo',
-   category: 'read'},
+   category: 'read',
+   cover: 'http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api'},
   {title: 'Jammin',
    author: 'Mike Eff',
-   category: 'wantToRead'},
+   category: 'wantToRead',
+   cover: 'http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api'},
 ]
 
 class BooksApp extends React.Component {
@@ -47,13 +52,13 @@ class BooksApp extends React.Component {
 
         <BookShelf 
           title = 'Want to Read'
-         books={books.filter(
+          books={books.filter(
           b => b.category === 'wantToRead'
         )}/>
 
         <BookShelf 
           title = 'Read'
-         books={books.filter(
+          books={books.filter(
           b => b.category === 'read'
         )}/>
 
