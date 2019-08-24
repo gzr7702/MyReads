@@ -2,6 +2,8 @@ import React from 'react'
 // import * as BooksAPI from './BooksAPI'
 import './App.css'
 import BookShelf from './Bookshelf.js'
+import SearchBooks from './SearchBooks.js'
+import { Route } from 'react-router-dom'
 
 const books = [
   {title: 'How to eat',
@@ -39,31 +41,46 @@ class BooksApp extends React.Component {
 
   render() {
     return (
-      <div className="app">
-        <div className="list-books-title">
-          <h1>MyReads</h1>
-        </div>
+      <div>
+          <Route exact path='/' render={() => (
+      
+              <div className="app">
+                <div className="list-books-title">
+                  <h1>MyReads</h1>
+                </div>
 
-        <BookShelf 
-          title = 'Currently Reading'
-          books={books.filter(
-          b => b.category === 'currentlyReading'
-        )}/>
+                  <BookShelf 
+                    title = 'Currently Reading'
+                    books={books.filter(
+                    b => b.category === 'currentlyReading'
+                  )}/>
 
-        <BookShelf 
-          title = 'Want to Read'
-          books={books.filter(
-          b => b.category === 'wantToRead'
-        )}/>
+                  <BookShelf 
+                    title = 'Want to Read'
+                    books={books.filter(
+                    b => b.category === 'wantToRead'
+                  )}/>
 
-        <BookShelf 
-          title = 'Read'
-          books={books.filter(
-          b => b.category === 'read'
-        )}/>
+                  <BookShelf 
+                    title = 'Read'
+                    books={books.filter(
+                    b => b.category === 'read'
+                  )}/>
 
-      </div>
-    )
+                  <div className="open-search">
+                    <button onClick="/search">Add a book</button>
+                  </div>
+
+              </div>
+
+          )} />
+
+          <Route exact path='/search' render={() => (
+             <SearchBooks />
+          )} />
+
+          </div>
+    );
   }
 }
 
