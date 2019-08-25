@@ -4,6 +4,7 @@ import './App.css'
 import BookShelf from './Bookshelf.js'
 import SearchBooks from './SearchBooks.js'
 import { Route } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const books = [
   {title: 'How to eat',
@@ -67,9 +68,11 @@ class BooksApp extends React.Component {
                     b => b.category === 'read'
                   )}/>
 
-                  <div className="open-search">
-                    <button onClick="/search">Add a book</button>
-                  </div>
+                  <Link 
+                  className="open-search"
+                  to="/search">
+                    <button />
+                  </Link>
 
               </div>
 
