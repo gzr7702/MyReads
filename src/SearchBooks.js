@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
+import BookShelf from './Bookshelf.js'
 
 class SearchBooks extends Component {
 
@@ -62,8 +63,14 @@ class SearchBooks extends Component {
               </div>
             </div>
             <div className="search-books-results">
-              <h1>Reading</h1>
-              <ol className="books-grid">{listItems}</ol>
+              <BookShelf 
+                    title = 'Currently Reading'
+                    //books={this.state.books.filter(
+                      //b => b.shelf === 'wantToRead'
+                    //)}
+                    //for now, we ignore book shelves and render all matches
+                    books={this.state.books}
+                  />
             </div>
 
           </div>
