@@ -13,17 +13,30 @@ class SearchBooks extends Component {
       books: []
     }
 
-    updateQuery = (query) => {
-      this.setState(() => ({
-        query: query.trim(),
-        books: BooksAPI.search(query)
-      }))
-      console.log(this.state.books)
+    updateBooks = (query) => {
+      const setState = this.setState.bind(this)
+      BooksAPI.search(query)
+              .then(function(value){
+                if (value.length > 0) {
+                  setState(() => ({
+                    query: query.trim(),
+                    books: value
+                  }))
+                }
+                else {
+                  return Promise.reject(new Error("..."))
+                }
+              })
+
     }
 
     render(){
         const { query } = this.state;
-        const { books } = this.props;
+        const { books } = this.state;
+
+        console.log(JSON.stringify(books))
+        const listItems = books.map((book) => <li>{book.title}</li>);
+        //const listItems = []
 
         return(
             <div className="search-books">
@@ -43,13 +56,14 @@ class SearchBooks extends Component {
                 */}
                 <input type="text" placeholder="Search by title or author"
                 value={ this.state.query }
-                onChange={(event) => this.updateQuery(event.target.value)}
+                onChange={(event) => this.updateBooks(event.target.value)}
                 />
 
               </div>
             </div>
             <div className="search-books-results">
-              <ol className="books-grid"></ol>
+              <h1>Reading</h1>
+              <ol className="books-grid">{listItems}</ol>
             </div>
 
           </div>
