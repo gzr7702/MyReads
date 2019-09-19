@@ -5,7 +5,8 @@ import Book from './Book'
 class Bookshelf extends Component {
      static propTypes = {
          books: PropTypes.array,
-         title: PropTypes.string
+         title: PropTypes.string,
+         onUpdate: PropTypes.func
       }
 
       state = {
@@ -16,6 +17,7 @@ class Bookshelf extends Component {
 
         const books = this.props.books;
         const title = this.props.title;
+        const onUpdate = this.props.onUpdate;
 
         return(
             <div className="bookshelf">
@@ -25,7 +27,10 @@ class Bookshelf extends Component {
                     {
                       Object.keys(books).map((bookId) => (
                         <li key={bookId}>
-                          <Book book={books[bookId]}/>
+                          <Book 
+                          book={books[bookId]}
+                          onUpdate={onUpdate}
+                          />
                         </li>
                     ))
                     }

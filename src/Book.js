@@ -3,11 +3,17 @@ import PropTypes from 'prop-types'
 
 class Book extends Component {
      static propTypes = {
-         book: PropTypes.object
+         book: PropTypes.object,
+         onUpdate: PropTypes.func
       }
 
       state = {
+      }
 
+      updateShelf() {
+          const id = this.props.book.id;
+          const shelf = "read"
+          this.props.onUpdate(id, shelf);
       }
 
       render() {
@@ -22,7 +28,7 @@ class Book extends Component {
                     'url(' + book.imageLinks.smallThumbnail + ')' }}></div>
                 </a>
                 <div className="book-shelf-changer">
-                    <select>
+                    <select onChange={this.updateShelf}>
                     <option value="move" disabled>Move to...</option>
                     <option value="currentlyReading">Currently Reading</option>
                     <option value="wantToRead">Want to Read</option>

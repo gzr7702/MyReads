@@ -19,6 +19,19 @@ class BooksApp extends React.Component {
     });
   }
 
+  componentDidUpate() {
+    BooksAPI.getAll().then(books => {
+      //console.log("app books: " + JSON.stringify(books))
+      this.setState({ books })
+    });
+  }
+
+  updateBookshelf(bookId, shelf) {
+    BooksAPI.update(bookId, shelf).then(books => {
+      console.log("app books: " + JSON.stringify(books))
+    });
+  }
+
   render() {
     //console.log("app props " + this.props);
     return (
@@ -34,7 +47,8 @@ class BooksApp extends React.Component {
                     title = 'Currently Reading'
                     books={this.state.books.filter(
                     b => b.shelf === 'currentlyReading'
-                  )}
+                    )}
+                    onUpdate={this.updateBookshelf}
                   />
 
                   <BookShelf 
@@ -60,7 +74,7 @@ class BooksApp extends React.Component {
           )} />
 
           <Route exact path='/search' render={() => (
-             <SearchBooks books={ this.state.books }/>
+             <SearchBooks />
           )} />
 
           </div>
