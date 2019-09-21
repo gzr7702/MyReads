@@ -1,39 +1,29 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import * as BooksAPI from './BooksAPI'
 import BookShelf from './Bookshelf.js'
 
 class SearchBooks extends Component {
 
     static propTypes = {
+      books: PropTypes.array
     }
 
     state = {
       query: '',
-      books: []
     }
 
-    updateBooks = (query) => {
-      const setState = this.setState.bind(this)
-      BooksAPI.search(query)
-              .then(function(value){
-                if (value.length > 0) {
-                  setState(() => ({
-                    query: query.trim(),
-                    books: value
-                  }))
-                }
-                else {
-                  return Promise.reject(new Error("..."))
-                }
-              })
-
+    handleChange = (e) => {
+      e.preventDefault();
+      this.setState({ query: e.target.value });
+      if (this.props.onSearchBooks && this.state.query !== "") {
+        this.props.onSearchBooks(this.state.query);
+      }
     }
 
     render(){
         const { query } = this.state;
-        const { books } = this.state;
+        const { books } = this.props;
 
         console.log(JSON.stringify(books))
         const listItems = books.map((book) => <li>{book.title}</li>);
@@ -56,8 +46,9 @@ class SearchBooks extends Component {
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
                 <input type="text" placeholder="Search by title or author"
-                value={ this.state.query }
-                onChange={(event) => this.updateBooks(event.target.value)}
+                name="query"
+                value={ query }
+                onChange={ this.handleChange }
                 />
 
               </div>
@@ -69,7 +60,7 @@ class SearchBooks extends Component {
                       //b => b.shelf === 'wantToRead'
                     //)}
                     //for now, we ignore book shelves and render all matches
-                    books={this.state.books}
+                    books={books}
                   />
             </div>
 
