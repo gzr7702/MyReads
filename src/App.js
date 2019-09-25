@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom'
 
 class BooksApp extends React.Component {
   state = {
-    books: []
+    books: [],
   }
 
   componentDidMount() {
@@ -17,6 +17,27 @@ class BooksApp extends React.Component {
       //console.log("app books: " + JSON.stringify(books))
       this.setState({ books })
     });
+  }
+
+  updateShelf = (bookId, shelf) => {
+    BooksAPI.update(bookId, shelf)
+      .then(data => {
+        if (data) {
+
+          const matchBook = element => element.id === bookId;
+
+          this.setState((prevState, props) => { 
+            // get the index of the updated book, set the new shelf, return new state
+            const index = prevState.books.findIndex(matchBook);
+            prevState.books[index].shelf = shelf;
+            //console.log(JSON.stringify(prevState.books[index]));
+            return {
+              books: prevState.books
+            }
+          });
+        }
+      })
+      .catch(console.error("Something went wrong on update"));
   }
 
   searchBooks = (query) => {
@@ -46,20 +67,25 @@ class BooksApp extends React.Component {
                 title = 'Currently Reading'
                 books={this.state.books.filter(
                 b => b.shelf === 'currentlyReading'
-              )}
+                )}
+                onUpdate={this.updateShelf}
               />
 
               <BookShelf 
                 title = 'Want to Read'
                 books={this.state.books.filter(
                 b => b.shelf === 'wantToRead'
-              )}/>
+                )}
+                onUpdate={this.updateShelf}
+              />
 
               <BookShelf 
                 title = 'Read'
                 books={this.state.books.filter(
                 b => b.shelf === 'read'
-              )}/>
+                )}
+                onUpdate={this.updateShelf}
+              />
 
               <Link 
               className="open-search"
