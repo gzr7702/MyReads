@@ -13,7 +13,7 @@ class Book extends Component {
       handleChange = (e) => {
         if (this.props.onUpdate) {
           console.log("value " + e.target.value);
-          this.props.onUpdate(this.props.book.id, e.target.value);
+          this.props.onUpdate(this.props.book, e.target.value);
         }
       }
 

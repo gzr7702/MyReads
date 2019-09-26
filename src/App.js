@@ -19,12 +19,13 @@ class BooksApp extends React.Component {
     });
   }
 
-  updateShelf = (bookId, shelf) => {
-    BooksAPI.update(bookId, shelf)
+  updateShelf = (book, shelf) => {
+    BooksAPI.update(book, shelf)
       .then(data => {
-        if (data) {
+        if (data && (data[shelf].includes(book))) {
+          console.log(book + " " + JSON.stringify(data))
 
-          const matchBook = element => element.id === bookId;
+          const matchBook = element => element.id === book;
 
           this.setState((prevState, props) => { 
             // get the index of the updated book, set the new shelf, return new state
@@ -37,7 +38,10 @@ class BooksApp extends React.Component {
           });
         }
       })
-      .catch(console.error("Something went wrong on update"));
+      .catch( error => {
+          console.error("Something went wrong on update " + error);
+        }
+      )
   }
 
   searchBooks = (query) => {
