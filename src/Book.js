@@ -10,10 +10,11 @@ class Book extends Component {
       state = {
       }
 
-      updateShelf() {
-          const id = this.props.book.id;
-          const shelf = "read"
-          this.props.onUpdate(id, shelf);
+      handleChange = (e) => {
+        if (this.props.onUpdate) {
+          console.log("value " + e.target.value);
+          this.props.onUpdate(this.props.book, e.target.value);
+        }
       }
 
       render() {
@@ -28,8 +29,8 @@ class Book extends Component {
                     'url(' + book.imageLinks.smallThumbnail + ')' }}></div>
                 </a>
                 <div className="book-shelf-changer">
-                    <select onChange={this.updateShelf}>
-                    <option value="move" disabled>Move to...</option>
+                    <select onChange={this.handleChange}>
+                    <option value="move" >Move to...</option>
                     <option value="currentlyReading">Currently Reading</option>
                     <option value="wantToRead">Want to Read</option>
                     <option value="read">Read</option>
