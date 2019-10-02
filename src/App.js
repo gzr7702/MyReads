@@ -6,6 +6,7 @@ import SearchBooks from './SearchBooks.js'
 import { Route } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
+// TODO 1: error returned after query
 
 class BooksApp extends React.Component {
   state = {

@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
+// TODO 2: account for books with no images
+
 class Book extends Component {
      static propTypes = {
          book: PropTypes.object,

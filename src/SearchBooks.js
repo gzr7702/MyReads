@@ -3,6 +3,10 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import Book from './Book.js'
 
+// TODO 1: fix books do not apear on proper bookshelf when updated
+// TODO 2: handle invalid queries
+// TODO 3: account for books with no images
+
 class SearchBooks extends Component {
 
     static propTypes = {
