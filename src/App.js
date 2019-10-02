@@ -10,38 +10,33 @@ import { Link } from 'react-router-dom'
 class BooksApp extends React.Component {
   state = {
     books: [],
+    searchResults: [],
   }
 
   componentDidMount() {
+    this.getAllBooks();
+  }
+
+  getAllBooks = () => {
     BooksAPI.getAll().then(books => {
-      //console.log("app books: " + JSON.stringify(books))
-      this.setState({ books })
-    });
+      this.setState({ books });
+    })
   }
 
   updateShelf = (book, shelf) => {
-    BooksAPI.update(book, shelf)
-      .then(data => {
-        if (data && (data[shelf].includes(book))) {
-          console.log(book + " " + JSON.stringify(data))
+    this.setState((prevState) => ({
+      books: prevState.books.map((b) => {
+        let newBook = b;
 
-          const matchBook = element => element.id === book;
-
-          this.setState((prevState, props) => { 
-            // get the index of the updated book, set the new shelf, return new state
-            const index = prevState.books.findIndex(matchBook);
-            prevState.books[index].shelf = shelf;
-            //console.log(JSON.stringify(prevState.books[index]));
-            return {
-              books: prevState.books
-            }
-          });
+        if (b.id === book.id) {
+          newBook.shelf = shelf;
+          BooksAPI.update(newBook, shelf);
         }
+
+        return newBook
       })
-      .catch( error => {
-          console.error("Something went wrong on update " + error);
-        }
-      )
+    }))
+
   }
 
   searchBooks = (query) => {
@@ -49,7 +44,7 @@ class BooksApp extends React.Component {
       .then(data => {
         if (data && data.length > 0) {
           this.setState({
-            books: data
+            searchResults : data
           })
         }
       })
@@ -58,7 +53,10 @@ class BooksApp extends React.Component {
 
   render() {
     //console.log("app props " + this.props);
+    const { books } = this.state;
+
     return (
+
       <div>
         <Route exact path='/' render={() => (
     
@@ -69,7 +67,7 @@ class BooksApp extends React.Component {
 
               <BookShelf 
                 title = 'Currently Reading'
-                books={this.state.books.filter(
+                books={books.filter(
                 b => b.shelf === 'currentlyReading'
                 )}
                 onUpdate={this.updateShelf}
@@ -77,7 +75,7 @@ class BooksApp extends React.Component {
 
               <BookShelf 
                 title = 'Want to Read'
-                books={this.state.books.filter(
+                books={books.filter(
                 b => b.shelf === 'wantToRead'
                 )}
                 onUpdate={this.updateShelf}
@@ -85,7 +83,7 @@ class BooksApp extends React.Component {
 
               <BookShelf 
                 title = 'Read'
-                books={this.state.books.filter(
+                books={books.filter(
                 b => b.shelf === 'read'
                 )}
                 onUpdate={this.updateShelf}
@@ -103,10 +101,11 @@ class BooksApp extends React.Component {
 
         <Route exact path='/search' render={() => (
             <SearchBooks 
-            books={ this.state.books }
             onSearchBooks={(book) => {
               this.searchBooks(book)
             }}
+            onUpdate={this.updateShelf}
+            searchResults={this.state.searchResults}
             />
         )} />
 
