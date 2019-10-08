@@ -10,7 +10,6 @@ import Book from './Book.js'
 class SearchBooks extends Component {
 
     static propTypes = {
-      searchResults: PropTypes.array,
       onSearchBooks: PropTypes.func
     }
 
@@ -55,7 +54,9 @@ class SearchBooks extends Component {
             </div>
             <div className="search-books-results">
               <ol className="books-grid">
-                { searchResults &&
+                {/*  console.log(searchResults) */}
+                {
+                  searchResults &&
                   Object.keys(searchResults).map(bookId => (
                     <li key={bookId}>
                       <Book 

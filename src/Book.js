@@ -18,16 +18,24 @@ class Book extends Component {
         }
       }
 
+      addDefaultImage(e) {
+        e.target.src="../public/book-icon.png";
+      }
       render() {
         const book = this.props.book;
         //console.log("book props: " + JSON.stringify(book));
+        //console.log("book image: " + typeof(book.imageLinks.smallThumbnail));
 
         return(
             <div className="book">
                 <div className="book-top">
                 <a href={book.previewLink}>
-                    <div className="book-cover" title={book.description} style={{ width: 128, height: 193, backgroundImage: 
-                    'url(' + book.imageLinks.smallThumbnail + ')' }}></div>
+                    <div className="book-cover" title={book.description} style={{ width: 128, height: 193}} >
+                    <img 
+                    src={typeof(book.imageLinks) !== 'undefined' ? 
+                            book.imageLinks.smallThumbnail : "./img/default.jpg"}
+                    alt="book cover"
+                    /></div>
                 </a>
                 <div className="book-shelf-changer">
                     <select value={book.shelf ? book.shelf: 'none'} onChange={this.handleChange}>
